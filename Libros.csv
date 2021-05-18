@@ -1,2 +1,79 @@
-ID,Nombre,Genero,Renta
-,,,
+,ID,Nombre Libro,Genero,Autor,Rentado
+0,18409,Fahrenheit 451,Ciencia ficcion,Ray Bradburry,Si
+1,13141,"Las estrellas, mi destino",Ciencia ficcion,Alfred Bester,Si
+2,16634,La historia de tu vida,Ciencia ficcion,Ted Chiang,No
+3,10531,La quinta estacion,Ciencia ficcion,N.K. Jemisin,Si
+4,14388,Orgullo y prejuicio,Novela,Jane Austen,Si
+5,17558,El principito,Novela,Antoine de Saint-Exupery,Si
+6,15519,El alquimista,Novela,Paulo Coelho,No
+7,18084,La chica del abrigo azul,Novela,Monica Hesse,No
+8,11467,La tabla de Flandes,Novela,Arturo Perez-Reverte,No
+9,10226,Sword Art Online - Alicization,Manga,Reki Kawahara,Si
+10,18577,Demon Slayer,Manga,Koyoharu Gotouge,No
+11,18117,Inuyasha,Manga,Rumiko Takahashi,No
+12,13669,Haikyuu,Manga,Haruichi Furudate,No
+13,16333,The Seven Deadly Sins,Manga,Nakaba Suzuki,Si
+14,17508,Estudio en escarlata,Policiaco,Arthur Conan Doyle,Si
+15,11004,El tren de las 4:50,Policiaco,Agatha Christie,No
+16,11948,La dama de blanco,Novela,William Wilkie Collins,No
+17,12662,Las aventuras de Sherlock Holmes,Policiaco,Arthur Conan Doyle,No
+18,12534,Un saco de canicas,Policiaco,Joseph Joffo,Si
+19,15914,Loba Negra,Policiaco,Juan Gomez-Jurado,No
+20,12204,Reina Roja,Policiaco,Juan Gomez-Jurado,Si
+21,12460,El senior de los anillos,Fantasia,J. R. R. R. Tolkien,Si
+22,13154,El Talisman,Fantasia,Stephen King y Peter Straub,Si
+23,12213,Cancion de hielo y fuego,Fantasia,George R.R. Martin,No
+24,17256,Harry Potter,Fantasia,J.K. Rowling,Si
+25,13706,Elantris,Fantasia,Brandon Sanderson,Si
+26,12106,La primera ley,Fantasia,Joe Abercrombie,Si
+27,19076,Un capitan de quince anios,Aventura,Julio Verne,Si
+28,10617,El faro del fin del mundo,Aventura,Julio Verne,Si
+29,11161,La isla del tesoro,Aventura,Robert Louis Stevenson,Si
+30,10157,Las aventuras de Tom Sawyer,Aventura,Mark Twain,Si
+31,14172,El ultimo mohicano,Aventura,James Fenimore Cooper,No
+32,19827,La llamada de la selva,Aventura,Jack London,Si
+33,14540,A traves del desierto,Aventura,Karl May,Si
+34,16324,La puerta del bosque,Cuentos de hadas,Melissa Albert,Si
+35,12476,Wicked,Cuentos de hadas,Gregory Maguire,Si
+36,13721,Princesa de cenizas,Cuentos de hadas,Laura Sebasti�n,Si
+37,16116,Hansel y Gretel,Cuentos de hadas,Los hermanos Grimm,No
+38,16736,El fantasma de la opera,Novela,Gaston Leroux,Si
+39,10551,Cenicienta,Cuentos de hadas,"Wilhelm Grimm, Daisy Fisher",No
+40,11011,Los jardines de la luna,Fantasia,Steven Erikson,Si
+41,11120,La guerra de los mundos,Ciencia ficcion,H. G. Wells,Si
+42,15399,El hombre ilustrado,Ciencia ficcion,Ray Bradburry,No
+43,19950,A todos los chicos de los que me enamore,Novela,Jenny Han,No
+44,17293,Eleanor & Park,Novela,Rainbow Rowell,Si
+45,13409,Bajo la misma estrella,Novela,John Green,No
+46,11909,Los juegos del hambre,Ciencia ficcion,Suzanne Collins,Si
+47,15803,Divergente,Ciencia ficcion,Veronica Roth,No
+48,13771,Ready player one,Novela,Ernest Cline,Si
+49,17063,Card Captor Sakura,Manga,CLAMP,No
+50,14325,El signo de los cuatro,Policiaco,Arthur Conan Doyle,Si
+51,13083,La carta robada,Policiaco,Edgar Allan Poe,No
+52,13773,La sangre manda,Policiaco,Stephen King,Si
+53,11775,Los tres mosqueteros,Aventura,Alejandro Dumas,No
+54,10283,Lo extraordinario,Aventura,Fran Zabaleta,No
+55,13596,Cinco semanas en globo,Ciencia ficcion,Julio Verne,No
+56,12519,Mermaid Melody,Manga,Pink Hanamori,Si
+57,16233,El Ruisenior,Novela,Kristin Hannah,No
+58,15786,Llamame por tu nombre,Novela,Andr� Aciman,No
+59,11281,Lo que el viento se llevo,Novela,Margaret Mitchell,No
+60,11444,Ciudades de papel,Novela,John Green,Si
+61,19037,Rapunzel,Cuentos de hadas,Jacob y Wilhelm Grimm,No
+62,19051,Blancanieves,Cuentos de hadas,Jacob y Wilhelm Grimm,Si
+63,12093,Barba azul,Cuentos de hadas,Chales Perrault,No
+64,10913,La ninia de los fosforos,Cuentos de hadas,Hans Christian Andersen,Si
+65,11120,El hobbit,Fantasia,J. R. R. R. Tolkien,Si
+66,16293,El Silmarillion,Fantasia,J. R. R. R. Tolkien,Si
+67,17396,El imperio final,Fantasia,Brandon Sanderson,No
+68,14166,El dragon renacido,Fantasia,Robert Jordan,No
+69,17110,El ojo del mundo,Fantasia,Robert Jordan,No
+70,17390,Naruto,Manga,Masahi Kishimoto,Si
+71,16613,Angel beats,Manga,Jun Maeda,Si
+72,10920,Code Geass,Manga,Ichirou Okouchi,Si
+73,15680,1984,Ciencia ficcion,George Orwell,No
+74,12012,La maquina del tiempo,Ciencia ficcion,H. G. Wells,Si
+75,15662,Solaris,Ciencia ficcion,Stanislaw Lem,No
+76,11241,Astroboy,Manga,Osamu Tezuka,No
+77,10446,Pokemon,Manga,Junichi Musuda,No

@@ -1,5 +1,5 @@
-,ID,Nombre,Celular,Membresia,Pago
-0,1010,Walter,1000000000,Admin,0
-1,9321,Chino,7352377147,vip,150
-2,8281,Gabs,5529092414,vip,150
-3,2786,Cristal,5566986632,vip,150
+,ID,Nombre,Celular,Membresia,Pago,Libro
+0,1010,Walter,1000000000,Admin,0,
+1,8668,Chino,7352377147,vip,150,0
+2,6857,Cristal,33333333,vip,150,0
+3,1485,Alvaro,55555555,premium,100,12012
