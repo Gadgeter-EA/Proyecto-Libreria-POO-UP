@@ -1,29 +1,3 @@
-'''
-Ideas de proyecto: (acomodo)
-Pantalla:
-1) Agregar miembro uwu
-     Membresías (cuando usuario quiera cambiarlo) uwu
-     Cancelar suscripcion uwu
-3) Rentar libro
-5) Datos financieros
-     Dinero generado
-6) Regresar libro
-7) Agregar libro (inventario) - Alvaro
-8) Información
-
-Pagos constantes: Las membresias
-Pagos "de la nada" (multa, suscripcion update)
-
-Manga
-Ciencia ficcion
-Novela
-Policiaco
-Fantasia
-Aventura
-Cuentos de hadas
-
-'''
-
 import numpy as np
 import pandas as pd
 from os import system
@@ -48,11 +22,11 @@ def generarIDlib():
     return id
 
 
-
 def depWhileInt(cond1, cond2, message = ""):
     valor = depInt(message)
     while valor < cond1 or valor > cond2:
-        print("\nEl valor ingresado no es valido, por favor ingresalo de nuevo.")
+        system("cls")
+        print("El valor ingresado no es valido, por favor ingresalo de nuevo.\n")
         valor = depInt(message)
     return valor
 
@@ -64,6 +38,7 @@ def depInt(mensaje=""):
             break
         except:
             print("Dato no valido, por favor ingresa otro.\n")
+            system("cls")
     return temp
 
 
@@ -76,7 +51,7 @@ class Seguridad:
                 contra += x
 
         self.contra = contra
-
+    #verificar ontraseña
     def validarContra(self):
         if self.contra != "":
             intentos = 1
@@ -92,7 +67,7 @@ class Seguridad:
                     print("Contraseña incorrecta, te quedan", (3 - intentos), "intento(s)")
                     contrau = input("Ingresa la contrasenia: ")
                     intentos += 1
-
+    #cambio de contraseña
     def cambiarContra(self):
         self.validarContra()
         system("cls")
@@ -116,35 +91,46 @@ class Administrador:
         self.seguridad = Seguridad()
         self.seguridad.validarContra()
         # system("cls")
-        self.menuPrincipal = "1) Miembros\n2) Libros\n3) Datos Financieros\n4) Salir\n\n"
+        self.menuPrincipal = "1) Miembros\n2) Libros\n3) Datos Financieros\n4) Cambiar contrasenia\n5) Salir\n\n"
+
         self.Work()
 
     # Programa y menu principal
     def Work(self):
+        system("cls")
         while True:
-            print(self.menuPrincipal)
-            opcion = depInt("Ingresa una opcion del menu: ")
+            opcion = depInt(self.menuPrincipal + "Ingresa una opcion del menu: ")
 
-            if opcion == 1:
+            if opcion == 1:  #1) Miembros
+                system("cls")
                 self.Miembros()
-            elif opcion == 2:
+            elif opcion == 2:  #2) Libros
+                system("cls")
                 self.Libros()
             elif opcion == 3:
-                self.dFin()
+                system("cls")
+                self.dFin()   #)Datos financieros
             elif opcion==4:
+                system("cls")
+                self.seguridad.cambiarContra()
+            elif opcion == 5:
+                print("\nSaliendo del programa")
                 break
             else:
+                system("cls")
                 continue
+
 
     # Funciones de miembros
     def Miembros(self):
         while True:
-            print("\n1) Agregar Miembros\n2) Lista de Miembros\n3) Actualizar Membresia\n4) Cancelar suscripcion\n5) Frecuencia de las membresias\n6) Salir\n\n")
-            opcion1 = depWhileInt(1,6,"Ingresa una opcion del menu: ")
+            #menú de la opcion 1)miembros
+            opcion1 = depWhileInt(1,6,"1) Agregar Miembros\n2) Lista de Miembros\n3) Actualizar Membresia\n4) Cancelar suscripcion\n5) Frecuencia de las membresias\n6) Salir\n\nIngresa una opcion del menu: ")
+            system("cls")
             # Agregar miembro
             if opcion1 == 1:
                 print("\n") #Agregar miembros
-
+                # ingresar datos del usuario
                 id = generarID()
                 nombre = input("Ingresa el nombre del nuevo miembro: ")
                 numero = depInt("Ingresa el numero del telefono del nuevo miembro: ")
@@ -153,6 +139,7 @@ class Administrador:
                 membresia = input("Ingresa una membresia del menu: ").lower()
 
                 while membresia != "standard" and membresia != "premium" and membresia != "vip":
+                    system("cls")
                     print("\nOpcion no valida.")
                     print("\n1) Standard  $50 MXN\n2) Premium $100 MXN\n3) VIP $150MXN\n")
                     membresia = input("Elija una membresia del menu: ").lower()
@@ -164,6 +151,7 @@ class Administrador:
                 else:
                     pago = 150
 
+                self.modificarIngresos(pago)
                 # Abrimos el csv de los miembros donde la columna sea unnamed
                 df_agregar = pd.read_csv("Miembros.csv", index_col= "Unnamed: 0")
                 nuevoMiembro = {'ID': id, 'Nombre': nombre,"Celular": numero, 'Membresia': membresia, 'Pago': pago, 'Libro': "0"}
@@ -180,6 +168,7 @@ class Administrador:
             elif opcion1 == 3: # Actualizar membresia
                 df = pd.read_csv("Miembros.csv")
                 df_copia = pd.read_csv("Miembros.csv")
+                df_copia.set_index('ID', inplace=True)
                 df_copia.drop("Unnamed: 0", axis = 1, inplace=True)
                 if df[1:].empty:
                     print("No hay ningun miembro registrado todavia.\nPor favor agrega antes uno.")
@@ -188,17 +177,19 @@ class Administrador:
                 while True:
                     idcambiar = depInt("Ingresa el ID del miembro: ")
                     try:
-                        df_copia.set_index('ID', inplace=True)
-                        print(df_copia.loc[idcambiar])
-                        print("\nPorfavor confirma que esa es tu cuenta.\n")
+                        print("\n" + df_copia.loc[idcambiar].to_string())
                     except KeyError:
-                        print("\nEste ID no existe porfavor verificalo.\n")
+                        print("Este ID no existe porfavor verificalo.\n")
+                        system("pause")
+                        system("cls")
                         continue
-                    opcion = depWhileInt(1, 2, " 1) Si  2)No: ")
+                    opcion = depWhileInt(1, 2, "\nPorfavor confirma que esa es tu cuenta.\n1) Si  2)No: ")
                     if opcion == 1:
                         break
                     else:
                         print("\nPorfavor checa el ID en tu credencial que se te dio.\n")
+                        system("pause")
+                        system("cls")
 
                 df.set_index('ID', inplace=True)
 
@@ -206,28 +197,18 @@ class Administrador:
                     print("Tu membresia ya es VIP. No puedes mejorarla mas.")
                     continue
                 elif df.loc[idcambiar,"Membresia"] == "premium": # Actualizar de premium a vip
-                    print("¿Seguro que quieres mejorar tu membresia a VIP? Se te cobrarian $50 MXN: ")
-                    opcion = depWhileInt(1, 2, " 1) Si  2)No: ")
+                    opcion = depWhileInt(1, 2, "\n¿Seguro que quieres mejorar tu membresia a VIP? Se te cobrarian $50 MXN.\n\n1) Si  2)No: ")
                     if opcion == 1:
                         df.loc[idcambiar, "Membresia"] = "vip"
                         df.loc[idcambiar, "Pago"] = 150
-                        with open("Ingresos.txt") as file:
-                            temporal = file.readlines()
-                            gastos = ""
-                            for x in temporal:
-                                gastos += x
+                        #remplaza a la función with open
+                        self.modificarIngresos(50)
 
-                            gastos = float(gastos)
-                            gastos += 50
-                        
-                        with open("Ingresos.txt", "w") as file:
-                            file.write(str(gastos))
                         df.reset_index(inplace=True)
                         df.drop("Unnamed: 0", axis = 1, inplace=True)
                         df.to_csv("Miembros.csv")
                 else:
-                    print("\n¿Que membresia nueva quieres?\nSi eliges VIP serian $100 MXN.\nSi eliges Premium serian $50 MXN.")
-                    opcion = depWhileInt(1, 2, " 1) VIP  2)Premium: ")
+                    opcion = depWhileInt(1, 2, "\n¿Que membresia nueva quieres?\n\nSi eliges VIP serian $100 MXN.\nSi eliges Premium serian $50 MXN.\n1) VIP  2)Premium: ")
 
                     if opcion == 1:
                         nuevamem = "vip"
@@ -241,21 +222,12 @@ class Administrador:
                     df.loc[idcambiar, "Membresia"] = nuevamem
                     df.loc[idcambiar, "Pago"] = nuevoc
 
-                    with open("Ingresos.txt") as file:
-                        temporal = file.readlines()
-                        gastos = ""
-                        for x in temporal:
-                            gastos += x
+                    self.modificarIngresos(cargo)
 
-                        gastos = float(gastos)
-                        gastos += cargo
-
-                    with open("Ingresos.txt", "w") as file:
-                        file.write(str(gastos))
                     df.reset_index(inplace=True)
                     df.drop("Unnamed: 0", axis=1, inplace=True)
                     df.to_csv("Miembros.csv")
-            elif opcion1 == 4:  # Cancelar suscripcion
+            elif opcion1 == 4: #Cancelar suscripcion
                 df = pd.read_csv("Miembros.csv")
                 if df[1:].empty:
                     print("No hay ningun miembro registrado todavia.\nPor favor agrega antes uno.")
@@ -267,48 +239,54 @@ class Administrador:
                 while True:
                     idborrar = depInt("Ingresa el ID del miembro a eliminar: ")
                     try:
-                        print(dfTemp.loc[idborrar])
-                        print("\nPorfavor confirma que esa es tu cuenta.\n")
+                        print("\n" + dfTemp.loc[idborrar].to_string())
                     except KeyError:
                         print("\nEste ID no existe porfavor verificalo.\n")
+                        system("pause")
+                        system("cls")
                         continue
-                    opcion = depWhileInt(1, 2," 1) Si  2)No: ")
+                    opcion = depWhileInt(1, 2,"\nPorfavor confirma que esa es tu cuenta.\n1) Si  2)No: ")
                     if opcion == 1:
                         break
                     else:
                         print("\nPorfavor checa el ID en tu credencial que se te dio.\n")
 
 
-                print("\nEsta accion es irreversible.¿Estas seguro?\n")
-                opcion = depWhileInt(1, 2, " 1) Si  2)No: ")
+                print("")
+                opcion = depWhileInt(1, 2, "\nEsta accion es irreversible.¿Estas seguro?\n1) Si  2)No: ")
                 if opcion == 1:
                     df.drop(df.loc[df['ID']==idborrar].index, inplace=True)
                     df.drop("Unnamed: 0", axis=1, inplace=True)
                     df.to_csv("Miembros.csv")
                 else:
+                    system("cls")
                     continue
             elif opcion1 == 5: #Frecuencia de membresias
                 df = pd.read_csv("Miembros.csv")
                 df = df[1:]
                 moda = df['Membresia'].mode()[0]
+                sns.set(color_codes=True)
                 sns.countplot(x = "Membresia", data = df,palette="Spectral")
                 plt.title(label = "La frecuencia de nuestras membresias\nModa: " + str(moda))
                 plt.show()
             elif opcion1 == 6: #Salir
+                system("cls")
                 break
             else:
                 continue
+            print()
+            system("pause")
+            system("cls")
 
     def Libros(self):
         while True:
-            print("\n1) Añadir libro\n2) Mostrar Catalogo\n3) Rentar libro\n4) Regresar un libro\n5) Fecuencia genero de los libros\n6) Salir\n\n")
-            opcion2 = depWhileInt(1,6,"Ingresa una opcion del menu: ")
+            opcion2 = depWhileInt(1,6,"1) Añadir libro\n2) Mostrar Catalogo\n3) Rentar libro\n4) Regresar un libro\n5) Fecuencia genero de los libros\n6) Salir\n\nIngresa una opcion del menu: ")
+            system("cls")
             if opcion2==1:
                 id=generarIDlib()
                 nombre = input("Ingresa el nombre del nuevo Libro: ")
-                print("\n Selecciona un género:\n1) Manga\n2) Ciencia ficcion\n3) Novela\n4) Policiaco\n5) "
-                      "Fantasia\n6) Aventura\n7) Cuentos de hadas\n\n")
-                genero = depWhileInt(1,7)
+                print()
+                genero = depWhileInt(1,7,"\n1) Manga\n2) Ciencia ficcion\n3) Novela\n4) Policiaco\n5) Fantasia\n6) Aventura\n7) Cuentos de hadas\n\nSelecciona un género: ")
                 if genero == 1:
                     genero = 'Manga'
                 elif genero == 2:
@@ -331,52 +309,37 @@ class Administrador:
                 df_agregar.to_csv("Libros.csv")
             elif opcion2==2:
                 df = pd.read_csv("Libros.csv")
-                selec = depWhileInt(1,2,"\nElija si quiere ver.\n1) Catalogo completo.\n2) Algun genero en especifico: ")
+                selec = depWhileInt(1,2,"Elija si quiere ver.\n1) Catalogo completo.\n2) Algun genero en especifico: ")
                 if selec == 1:
+                    system("cls")
                     print("Estos son los libros que tenemos disponibles: ")
                     df.drop("Unnamed: 0", axis=1, inplace=True)
                     df.set_index('ID', inplace=True)
-                    print(df.to_string())
+                    print("\n" + df.to_string())
                 elif selec == 2:
                     gen_esp = depWhileInt(1,7,"\n1) Manga\n2) Ciencia ficcion\n3) Novela\n4) Policiaco\n5) Fantasia\n6) Aventura\n7) Cuentos de hadas\n\nSelecciona el genero que guste revisar:")
                     if gen_esp == 1:
-                        print("Usted eligio: Manga. Estas son las opciones que tenemos: ")
-                        df.drop("Unnamed: 0", axis=1, inplace=True)
-                        df.set_index('ID', inplace=True)
-                        print(df[df['Genero']=='Manga'].to_string())
+                        genero1 = "Manga"
                     elif gen_esp == 2:
-                        print("Usted eligio: Ciencia ficcion. Estas son las opciones que tenemos: ")
-                        df.drop("Unnamed: 0", axis=1, inplace=True)
-                        df.set_index('ID', inplace=True)
-                        print(df[df['Genero']=='Ciencia ficcion'].to_string())
+                        genero1 = "Ciencia ficcion"
                     elif gen_esp == 3:
-                        print("Usted eligio: Novela. Estas son las opciones que tenemos: ")
-                        df.drop("Unnamed: 0", axis=1, inplace=True)
-                        df.set_index('ID', inplace=True)
-                        print(df[df['Genero']=='Novela'].to_string())
+                        genero1 = "Novela"
                     elif gen_esp == 4:
-                        print("Usted eligio: Policiaco. Estas son las opciones que tenemos: ")
-                        df.drop("Unnamed: 0", axis=1, inplace=True)
-                        df.set_index('ID', inplace=True)
-                        print(df[df['Genero']=='Policiaco'].to_string())
+                        genero1 = "Policiaco"
                     elif gen_esp == 5:
-                        print("Usted eligio: Fantasia. Estas son las opciones que tenemos: ")
-                        df.drop("Unnamed: 0", axis=1, inplace=True)
-                        df.set_index('ID', inplace=True)
-                        print(df[df['Genero']=='Fantasia'].to_string())
+                        genero1 = "Fantasia"
                     elif gen_esp == 6:
-                        print("Usted eligio: Aventura. Estas son las opciones que tenemos: ")
-                        df.drop("Unnamed: 0", axis=1, inplace=True)
-                        df.set_index('ID', inplace=True)
-                        print(df[df['Genero']=='Aventura'].to_string())
+                        genero1 = "Aventura"
                     elif gen_esp == 7:
-                        print("Usted eligio: Cuentos de hadas. Estas son las opciones que tenemos: ")
-                        df.drop("Unnamed: 0", axis=1, inplace=True)
-                        df.set_index('ID', inplace=True)
-                        print(df[df['Genero']=='Cuentos de hadas'].to_string())
+                        genero1 = "Cuentos de hadas"
+                    system("cls")
+                    print(f"Usted eligio: {genero1}. Estas son las opciones que tenemos: ")
+                    df.drop("Unnamed: 0", axis=1, inplace=True)
+                    df.set_index('ID', inplace=True)
+                    print("n" + df[df['Genero'] == genero1].to_string())
             elif opcion2==3:
                 df = pd.read_csv("Libros.csv")
-                gen_ren = depWhileInt(1,7,"\n1) Manga\n2) Ciencia ficcion\n3) Novela\n4) Policiaco\n5) Fantasia\n6) Aventura\n7) Cuentos de hadas\n\nSelecciona un genero: ")
+                gen_ren = depWhileInt(1,7,"1) Manga\n2) Ciencia ficcion\n3) Novela\n4) Policiaco\n5) Fantasia\n6) Aventura\n7) Cuentos de hadas\n\nSelecciona un genero: ")
 
                 if gen_ren == 1:
                     genero = "Manga"
@@ -395,12 +358,13 @@ class Administrador:
 
                 df.drop("Unnamed: 0", axis=1, inplace=True)
                 df.set_index('ID', inplace=True)
-                print(df[(df['Genero'] == genero) & (df['Rentado'] == 'No')].to_string())
 
                 df_miembros = pd.read_csv("Miembros.csv")
 
                 if df_miembros[1:].empty:
                     print("No hay ningun miembro registrado todavia.\nPor favor agrega antes uno.")
+                    system("pause")
+                    system("cls")
                     continue
 
                 df_miembros.set_index("ID",inplace=True)
@@ -409,14 +373,19 @@ class Administrador:
 
                 try:
                     if df_miembros.loc[id_personita, "Libro"] != 0:
-                        print("Usted ya tiene un libro rentado. Si desea rentar otro libro, devuelva el anterior.")
+                        print("Usted ya tiene un libro rentado. Si desea rentar otro libro, devuelva el anterior.\n")
+                        system("pause")
+                        system("cls")
                         continue
                 except KeyError:
-                    print("El ID que ingreso no existe. Por favor vuelva a intentarlo.")
+                    print("El ID que ingreso no existe. Por favor vuelva a intentarlo.\n")
+                    system("pause")
+                    system("cls")
                     continue
 
                 while True:
-                    id_lib = depInt("\nElija el ID del libro que desea rentar: ")
+                    system("cls")
+                    id_lib = depInt(df[(df['Genero'] == genero) & (df['Rentado'] == 'No')].to_string() + "\n\nElija el ID del libro que desea rentar: ")
                     try:
                         df.loc[id_lib, "Rentado"] = 'Si'
                         df.reset_index(inplace=True)
@@ -427,7 +396,9 @@ class Administrador:
                         df_miembros.to_csv("Miembros.csv")
                         break
                     except KeyError:
-                        print("Este ID no existe.\nRegresando al menu.")
+                        print("Este ID no existe.\nIngresa algo valido.")
+                    except ValueError:
+                        print("Este ID no existe.\nIngresa algo valido.")
             elif opcion2==4:
                 df_miembros = pd.read_csv("Miembros.csv")
                 df_libros = pd.read_csv("Libros.csv")
@@ -438,17 +409,19 @@ class Administrador:
                     print("No hay ningun miembro registrado todavia.\nPor favor agrega antes uno.")
                     continue
 
-
                 id_personita= depInt("Ingresa tu ID: ")
-                print(df_miembros)
                 try:
                     if df_miembros.loc[id_personita,"Libro"] == 0:
-                        print("No tienes libros rentados")
+                        print("No tienes libros rentados.")
+                        system("pause")
+                        system("cls")
                         continue
                 except KeyError:
                     print("El ID no existe. Por favor vuelva a intentarlo.")
+                    system("pause")
+                    system("cls")
                     continue
-                    
+
                 idLibro = df_miembros.loc[id_personita,"Libro"]
                 df_libros.loc[idLibro,"Rentado"]="No"
                 df_miembros.loc[id_personita,"Libro"]=0
@@ -456,23 +429,29 @@ class Administrador:
                 df_miembros.reset_index(inplace=True)
                 df_libros.drop("Unnamed: 0",axis=1, inplace=True)
                 df_libros.reset_index(inplace=True)
+                print("\nEl libro ha sido devuelto con exito en el sistema.")
                 df_libros.to_csv("Libros.csv")
                 df_miembros.to_csv("Miembros.csv")
             elif opcion2==5:
                 df = pd.read_csv("Libros.csv")
+                sns.set(color_codes=True)
                 plt.figure(figsize=(9, 7))
                 sns.countplot(x="Genero", data=df, palette="Spectral", hue = "Rentado")
                 plt.title(label="Frecuencia de los libros")
                 plt.show()
             elif opcion2==6:
+                system("cls")
                 break
             else:
+                system("cls")
                 continue
+            print()
+            system("pause")
+            system("cls")
 
     def dFin(self):
         while True:
-            print("\n1) Ingresos\n2) Utilidades\n3) Salir\n\n")
-            opcion3 = depWhileInt(1,3, "Ingresa una opcion del menu: ")
+            opcion3 = depWhileInt(1,3, "1) Ingresos\n2) Utilidades\n3) Salir\n\nIngresa una opcion del menu: ")
             if opcion3==1:
                 df_gan=pd.read_csv("Miembros.csv", index_col= "Unnamed: 0")
                 ganancia = df_gan.Pago.sum()
@@ -487,7 +466,9 @@ class Administrador:
                 ganancia = ganancia + ingresos
 
                 df_gan = df_gan[1:]
-                sns.barplot(x="Membresia",y = "Pago", data=df_gan, palette="Spectral")
+                sns.set(color_codes=True)
+                plt.figure(figsize=(9, 7))
+                df_gan.groupby("Membresia")["Pago"].sum().plot(kind="bar")
                 plt.title(label="Ingresos por membresia\nLos ingresos del mes son: " + str(ganancia) + "$")
                 plt.show()
             elif opcion3==2:
@@ -507,31 +488,42 @@ class Administrador:
 
                 ganancia = ganancia + ingresos
                 utilidades = ganancia - gasto_luz - gasto_agua - gasto_renta
-                print(f"El gasto de luz este mes fue de {gasto_luz}")
-                print(f"El gasto de agua de este mes fue de {gasto_agua}")
-                print(f"El gasto de la renta este mes fue de {gasto_renta}")
+                system("cls")
+                print(f"El gasto de luz este mes fue de ${gasto_luz}")
+                print(f"El gasto de agua de este mes fue de ${gasto_agua}")
+                print(f"El gasto de la renta este mes fue de ${gasto_renta}")
 
                 if utilidades<=0:
                     print("Esta teniendo perdidas.")
-                    print(f"La utilidad de este mes es de: {utilidades}")
+                    print(f"La utilidad de este mes es de: ${utilidades}")
                 else:
-                    print(f"La utilidad de este mes es de: {utilidades}")
+                    print(f"La utilidad de este mes es de: ${utilidades}")
+            elif opcion3 == 3:
+                system("cls")
+                break
+            else:
+                continue
+            print()
+            system("pause")
+            system("cls")
 
 
+    def modificarIngresos(self,cargo):
+         with open("Ingresos.txt") as file:
+             temporal = file.readlines()
+             gastos = ""
+             for x in temporal:
+                 gastos += x
 
+             gastos = float(gastos)
+             gastos += cargo
 
-
-
-
-
-
-
-
-
-# ---------------------------
+         with open("Ingresos.txt", "w") as file:
+             file.write(str(gastos))
 
 
 biblioteca = Administrador()
+
 
 
 
