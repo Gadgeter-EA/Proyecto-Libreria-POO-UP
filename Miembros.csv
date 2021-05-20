@@ -1,7 +1,9 @@
 ,ID,Nombre,Celular,Membresia,Pago,Libro
 0,1010,Walter,1000000000,Admin,0,0
-1,6826,Ana Gaby,5529092414,vip,150,10283
+1,6826,Ana Gaby,5529092414,vip,150,0
 2,5217,Cristal,5566986632,vip,150,0
 3,9319,Alvaro,5574666566,vip,150,0
 4,1363,Rin,7354325996,vip,150,0
 5,6727,Emiliano Acevedo,7352377147,premium,100,0
+6,8772,Matin Lopez,7351345196,standard,50,0
+7,7661,Tony Stark,5523455657,premium,100,0
